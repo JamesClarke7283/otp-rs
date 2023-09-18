@@ -1,0 +1,28 @@
+name: Publish to crates.io
+
+on:
+  workflow_run:
+    workflows: ["Rust"]  # <-- Name of the Rust build & test workflow
+    types:
+      - completed
+
+jobs:
+  publish:
+    needs: build_and_test  # <-- This ensures the publish only happens if build_and_test succeeds
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        profile: minimal
+
+    - name: Publish to Crates.io
+      uses: actions-rs/cargo@v1
+      with:
+        command: publish
+        args: --token ${{ secrets.CRATES_IO_TOKEN }}
