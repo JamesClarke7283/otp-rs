@@ -1,6 +1,6 @@
 [package]
-name = "otp_rs"
-version = "1.0.1"
+name = "txt_otp"
+version = "1.0.2"
 edition = "2021"
 description = "A text based one time pad library"
 license = "LGPL-3.0-or-later"
